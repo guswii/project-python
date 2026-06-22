@@ -1,7 +1,7 @@
 import os
 import sys
 
-# Kode warna ANSI untuk visualisasi terminal yang menarik
+# Kode warna untuk visualisasi terminal
 GREEN, YELLOW, RED, BLUE, CYAN, BOLD, RESET = "\033[92m", "\033[93m", "\033[91m", "\033[94m", "\033[96m", "\033[1m", "\033[0m"
 
 class Node:
@@ -99,8 +99,8 @@ def main():
         print(f"""{CYAN}┌──────────────────────────────────────────────────────────┐
 │ {BOLD}📋 MENU UTAMA:{RESET}                                           {CYAN}│
 ├──────────────────────────────────────────────────────────┤
-│ {GREEN}[1]{RESET} Tambah Pasien Baru (Enqueue)                         {CYAN}│
-│ {GREEN}[2]{RESET} Panggil Pasien Berikutnya (Dequeue)                  {CYAN}│
+│ {GREEN}[1]{RESET} Tambah Pasien Baru                                   {CYAN}│
+│ {GREEN}[2]{RESET} Panggil Pasien Berikutnya                            {CYAN}│
 │ {GREEN}[3]{RESET} Cari Data Pasien                                     {CYAN}│
 │ {GREEN}[4]{RESET} Tampilkan Daftar Antrean                             {CYAN}│
 │ {GREEN}[5]{RESET} Informasi Detail Antrean                             {CYAN}│
