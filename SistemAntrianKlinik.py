@@ -1,19 +1,21 @@
 import os
 import sys
 
-# Kode warna ANSI untuk visualisasi terminal yang menarik
+# Kode warna untuk terminal
 GREEN, YELLOW, RED, BLUE, CYAN, BOLD, RESET = "\033[92m", "\033[93m", "\033[91m", "\033[94m", "\033[96m", "\033[1m", "\033[0m"
 
+
+# Menyimpan data satu pasien dalam Linked List
+# Setiap node berisi: Nomor pasien, nama pasien dan keluhan pasien
 class Node:
-    """Kelas Node mewakili satu pasien dalam Linked List."""
     def __init__(self, no_pasien, nama, keluhan):
         self.no_pasien = no_pasien
         self.nama = nama
         self.keluhan = keluhan
         self.next = None
 
+# Mengelola antrean dengan konsep FIFO
 class Queue:
-    """Kelas Queue FIFO menggunakan manual Singly Linked List dengan head dan tail."""
     def __init__(self):
         self.head = self.tail = None
         self.size = 0
@@ -21,13 +23,18 @@ class Queue:
         self.counter = 0
         self.history = []
 
+    # berfungsi untuk mengecek antrean kosong atau penuh
     def is_empty(self): return self.size == 0
     def is_full(self): return self.size >= self.max_size
 
+    # untuk menambahkan pasien baru ke belakang antrean
     def enqueue(self, nama, keluhan):
+         # tidak boleh menambah jika antrean penuh
         if self.is_full(): return False
         self.counter += 1
         new_node = Node(str(self.counter), nama, keluhan)
+
+        # jika antrean kosong, head dan tail menunjuk ke node baru
         if self.is_empty():
             self.head = self.tail = new_node
         else:
@@ -36,6 +43,7 @@ class Queue:
         self.size += 1
         return new_node.no_pasien
 
+    # untuk memanggil pasien terdepan dan menghapusnya dari antrean
     def dequeue(self):
         if self.is_empty(): return None
         removed = self.head
@@ -44,20 +52,25 @@ class Queue:
         self.size -= 1
         self.history.append(Node(removed.no_pasien, removed.nama, removed.keluhan))
         return removed
-
+    
+    # menampilkan infromasi antrean
     def get_info(self):
         return {"jumlah": self.size, "depan": self.head, "belakang": self.tail}
-
+    
+    #menampilkan daftar riwayat pasien
     def get_history(self): return self.history
 
+    # mencari pasien berdasarkan nomor atau nama
     def cari_pasien(self, kata_kunci):
         hasil, current, kw = [], self.head, kata_kunci.lower()
+        #telusuri seluruh liked list
         while current:
             if kw in current.no_pasien.lower() or kw in current.nama.lower():
                 hasil.append(current)
             current = current.next
         return hasil
 
+    #menampilkan seluruh pasien yang sedang antre
     def tampilkan_semua(self):
         daftar, current = [], self.head
         while current:
@@ -65,6 +78,7 @@ class Queue:
             current = current.next
         return daftar
 
+#menampilkan informasi pasien
 def cetak_pasien(pasien, index):
     print(f"   {CYAN}┌──────────────────────────────────────────────┐{RESET}\n"
           f"     {BOLD}Urutan    : {index}{RESET}\n"
@@ -72,6 +86,8 @@ def cetak_pasien(pasien, index):
           f"     Nama      : {pasien.nama}\n"
           f"     Keluhan   : {pasien.keluhan}\n"
           f"   {CYAN}└──────────────────────────────────────────────┘{RESET}")
+
+
 
 def main():
     antrean_klinik = Queue()
@@ -99,8 +115,8 @@ def main():
         print(f"""{CYAN}┌──────────────────────────────────────────────────────────┐
 │ {BOLD}📋 MENU UTAMA:{RESET}                                           {CYAN}│
 ├──────────────────────────────────────────────────────────┤
-│ {GREEN}[1]{RESET} Tambah Pasien Baru (Enqueue)                         {CYAN}│
-│ {GREEN}[2]{RESET} Panggil Pasien Berikutnya (Dequeue)                  {CYAN}│
+│ {GREEN}[1]{RESET} Tambah Pasien Baru                                   {CYAN}│
+│ {GREEN}[2]{RESET} Panggil Pasien Berikutnya                            {CYAN}│
 │ {GREEN}[3]{RESET} Cari Data Pasien                                     {CYAN}│
 │ {GREEN}[4]{RESET} Tampilkan Daftar Antrean                             {CYAN}│
 │ {GREEN}[5]{RESET} Informasi Detail Antrean                             {CYAN}│
